@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import getUsers from "./queries";
 
 const usersData = [
   {
@@ -52,16 +51,6 @@ function App() {
   const [matchedCards, setMatchedCards] = useState([]);
   const [wrongCard, setWrongCard] = useState("");
   const [selectedCardData, setSelectedCardData] = useState("");
-
-  // useEffect(() => {
-  //   const loadUsers = async () => {
-  //     const data = await getUsers();
-  //     setUsers(data);
-  //   };
-
-  //   loadUsers();
-
-  // }, []);
 
   useEffect(() => {
     const currentUser = users.find((u) => u.username === currentUsername);
