@@ -1,32 +1,16 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
+import fetchUsers from './queries';
 
 function App() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('users')
-          .select('id, name, screens, score')
-          .order('name');
-
-        if (error) {
-          console.error(error);
-          throw new Error('Users could not be loaded');
-        }
-
-        console.log("DATA: ", data);
-        setUsers(data);
-      } catch (err) {
-        console.error("Failed to fetch users:", err);
-      }
+    const loadUsers = async () => {
+      const data = await fetchUsers();
+      setUsers(data);
     };
 
-    fetchUsers();
+    loadUsers();
   }, []);
 
   return (
