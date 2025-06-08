@@ -62,7 +62,6 @@ function App() {
     if (!users) return;
     prepareLessonCards(users[0].current_lesson);
   }, [users]);
-  console.log("usershere: ", users);
 
   let initialUser = users ? users[0] : [];
 
@@ -256,7 +255,9 @@ function App() {
                 {card.type === "word" ? (
                   <span style={{ fontSize: "18px" }}>{card.content}</span>
                 ) : (
-                  <span style={{ color: "lightblue" }}>{card.content}</span>
+                  <span style={{ color: "blue", fontWeight: "500" }}>
+                    {card.content}
+                  </span>
                 )}
               </div>
             );
