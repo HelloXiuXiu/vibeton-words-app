@@ -17,7 +17,7 @@ function App() {
   return (
     <ul>
       {users?.map((user) => (
-        <li key={user.name}>{user.name}</li>
+        <li key={user.id}>{user.username}</li>
       ))}
     </ul>
   );

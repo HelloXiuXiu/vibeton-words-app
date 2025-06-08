@@ -8,8 +8,8 @@ const getUsers = async () => {
   try {
     const { data, error } = await supabase
       .from('users')
-      .select('id, name, screens, score')
-      .order('name');
+      .select('id, username, current_lesson, current_score')
+      .order('username');
 
     if (error) {
       console.error(error);
