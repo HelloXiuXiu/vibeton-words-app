@@ -4,22 +4,35 @@ import { createClient } from "@supabase/supabase-js";
 const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
 
 function App() {
-  const [instruments, setInstruments] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getInstruments();
-  }, []);
+    const fetchUsers = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('users')
+          .select('id, name, screens, score')
+          .order('name');
 
-  async function getInstruments() {
-    const { data } = await supabase.from("instruments").select();
-    setInstruments(data);
-  }
+        if (error) {
+          console.error(error);
+          throw new Error('Users could not be loaded');
+        }
+
+        console.log("DATA: ", data);
+        setUsers(data);
+      } catch (err) {
+        console.error("Failed to fetch users:", err);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   return (
     <ul>
-      Hello world
-      {instruments?.map((instrument) => (
-        <li key={instrument.name}>{instrument.name}</li>
+      {users?.map((user) => (
+        <li key={user.name}>{user.name}</li>
       ))}
     </ul>
   );
