@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import getUsers from "./queries";
+import {getUsers, getWords, updateUserScore} from './queries';
 
 const usersData = [
   {
@@ -35,6 +35,7 @@ const wordsData = [
   { word: "chest", img: "https://dfdfdfd17.com" },
   { word: "stomach", img: "https://dfdfdfd18.com" },
 ];
+
 
 function App() {
   const users = usersData;
