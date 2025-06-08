@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import {getUsers, getWords, updateUserScore} from './queries';
+import { getUsers, getWords, updateUserScore } from "./queries";
 
 const usersData = [
   {
@@ -16,46 +16,102 @@ const usersData = [
 ];
 
 const wordsData = [
-  { word: "telo", img: "https://dfdfdfd1.com" },
-  { word: "head", img: "https://dfdfdfd2.com" },
-  { word: "hand", img: "https://dfdfdfd3.com" },
-  { word: "leg", img: "https://dfdfdfd4.com" },
-  { word: "eye", img: "https://dfdfdfd5.com" },
-  { word: "ear", img: "https://dfdfdfd6.com" },
-  { word: "nose", img: "https://dfdfdfd7.com" },
-  { word: "mouth", img: "https://dfdfdfd8.com" },
-  { word: "hair", img: "https://dfdfdfd9.com" },
-  { word: "foot", img: "https://dfdfdfd10.com" },
-  { word: "finger", img: "https://dfdfdfd11.com" },
-  { word: "toe", img: "https://dfdfdfd12.com" },
-  { word: "knee", img: "https://dfdfdfd13.com" },
-  { word: "elbow", img: "https://dfdfdfd14.com" },
-  { word: "shoulder", img: "https://dfdfdfd15.com" },
-  { word: "back", img: "https://dfdfdfd16.com" },
-  { word: "chest", img: "https://dfdfdfd17.com" },
-  { word: "stomach", img: "https://dfdfdfd18.com" },
+  {
+    word: "telo",
+    img: "https://upload.wikimedia.org/wikipedia/commons/6/65/Human_body_silhouette.svg",
+  },
+  {
+    word: "head",
+    img: "https://upload.wikimedia.org/wikipedia/commons/1/10/Human_head_icon.svg",
+  },
+  {
+    word: "hand",
+    img: "https://upload.wikimedia.org/wikipedia/commons/7/73/Hand_icon.svg",
+  },
+  {
+    word: "leg",
+    img: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Leg_icon.svg",
+  },
+  {
+    word: "eye",
+    img: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Eye_icon.svg",
+  },
+  {
+    word: "ear",
+    img: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Ear_icon.svg",
+  },
+  {
+    word: "nose",
+    img: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Nose_icon.svg",
+  },
+  {
+    word: "mouth",
+    img: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Mouth_icon.svg",
+  },
+  {
+    word: "hair",
+    img: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hair_icon.svg",
+  },
+  {
+    word: "foot",
+    img: "https://upload.wikimedia.org/wikipedia/commons/1/17/Foot_icon.svg",
+  },
+  {
+    word: "finger",
+    img: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Finger_icon.svg",
+  },
+  {
+    word: "toe",
+    img: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Toe_icon.svg",
+  },
+  {
+    word: "knee",
+    img: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Knee_icon.svg",
+  },
+  {
+    word: "elbow",
+    img: "https://upload.wikimedia.org/wikipedia/commons/8/83/Elbow_icon.svg",
+  },
+  {
+    word: "shoulder",
+    img: "https://upload.wikimedia.org/wikipedia/commons/0/08/Shoulder_icon.svg",
+  },
+  {
+    word: "back",
+    img: "https://upload.wikimedia.org/wikipedia/commons/0/00/Back_icon.svg",
+  },
+  {
+    word: "chest",
+    img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Chest_icon.svg",
+  },
+  {
+    word: "stomach",
+    img: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Stomach_icon.svg",
+  },
 ];
-
 
 function App() {
   const [users, setUsers] = useState(null);
-  const [words, setWords] = useState(null);
+  //const [words, setWords] = useState(null);
+
+  const words = wordsData;
 
   useEffect(() => {
     const loadUsers = async () => {
       const data = await getUsers();
       setUsers(data);
     };
-    const loadWords = async () => {
-    const data = await getWords();
-    setWords(data);
-    };
-     loadUsers();
-    loadWords();
 
+    loadUsers();
+
+    // if (!users[0]) return;
+    // prepareLessonCards(users[0].current_lesson);
   }, []);
-  console.log('usershere: ', users)
-  console.log('wpoe: ', words)
+
+  useEffect(() => {
+    if (!users) return;
+    prepareLessonCards(users[0].current_lesson);
+  }, [users]);
 
   let initialUser = users ? users[0] : [];
 
@@ -70,10 +126,8 @@ function App() {
   const [wrongCard, setWrongCard] = useState("");
   const [selectedCardData, setSelectedCardData] = useState("");
 
-
-
   useEffect(() => {
-    if (!users) return
+    if (!users) return;
     const currentUser = users.find((u) => u.username === currentUsername);
 
     setCurrentScore(currentUser.current_score);
@@ -85,10 +139,12 @@ function App() {
   }, [currentUsername]);
 
   const prepareLessonCards = (lesson) => {
-    const startIndex = (lesson - 1) * 6;
-    const lessonWords = words.slice(startIndex, startIndex + 6);
+    const startIndex = lesson;
+    const lessonWords = words?.slice(startIndex, startIndex + 6);
 
-    const wordCards = lessonWords.map((w) => ({
+    if (!lessonWords) return;
+
+    const wordCards = lessonWords?.map((w) => ({
       type: "word",
       content: w.word,
     }));
