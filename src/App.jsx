@@ -46,10 +46,10 @@ function App() {
       setUsers(data);
     };
     const loadWords = async () => {
-    const data = await getWords();
-    // setWords(data);
+      const data = await getWords();
+      // setWords(data);
     };
-     loadUsers();
+    loadUsers();
     // loadWords();
 
     loadUsers();
@@ -62,7 +62,7 @@ function App() {
     if (!users) return;
     prepareLessonCards(users[0].current_lesson);
   }, [users]);
-  console.log('usershere: ', users)
+  console.log("usershere: ", users);
 
   let initialUser = users ? users[0] : [];
 
@@ -256,11 +256,7 @@ function App() {
                 {card.type === "word" ? (
                   <span style={{ fontSize: "18px" }}>{card.content}</span>
                 ) : (
-                  <img
-                    src={card.content}
-                    alt="img"
-                    style={{ maxWidth: "100%", maxHeight: "80px" }}
-                  />
+                  <span style={{ color: "lightblue" }}>{card.content}</span>
                 )}
               </div>
             );
