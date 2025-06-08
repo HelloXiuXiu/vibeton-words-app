@@ -16,84 +16,28 @@ const usersData = [
 ];
 
 const wordsData = [
-  {
-    word: "telo",
-    img: "https://upload.wikimedia.org/wikipedia/commons/6/65/Human_body_silhouette.svg",
-  },
-  {
-    word: "head",
-    img: "https://upload.wikimedia.org/wikipedia/commons/1/10/Human_head_icon.svg",
-  },
-  {
-    word: "hand",
-    img: "https://upload.wikimedia.org/wikipedia/commons/7/73/Hand_icon.svg",
-  },
-  {
-    word: "leg",
-    img: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Leg_icon.svg",
-  },
-  {
-    word: "eye",
-    img: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Eye_icon.svg",
-  },
-  {
-    word: "ear",
-    img: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Ear_icon.svg",
-  },
-  {
-    word: "nose",
-    img: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Nose_icon.svg",
-  },
-  {
-    word: "mouth",
-    img: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Mouth_icon.svg",
-  },
-  {
-    word: "hair",
-    img: "https://upload.wikimedia.org/wikipedia/commons/9/96/Hair_icon.svg",
-  },
-  {
-    word: "foot",
-    img: "https://upload.wikimedia.org/wikipedia/commons/1/17/Foot_icon.svg",
-  },
-  {
-    word: "finger",
-    img: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Finger_icon.svg",
-  },
-  {
-    word: "toe",
-    img: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Toe_icon.svg",
-  },
-  {
-    word: "knee",
-    img: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Knee_icon.svg",
-  },
-  {
-    word: "elbow",
-    img: "https://upload.wikimedia.org/wikipedia/commons/8/83/Elbow_icon.svg",
-  },
-  {
-    word: "shoulder",
-    img: "https://upload.wikimedia.org/wikipedia/commons/0/08/Shoulder_icon.svg",
-  },
-  {
-    word: "back",
-    img: "https://upload.wikimedia.org/wikipedia/commons/0/00/Back_icon.svg",
-  },
-  {
-    word: "chest",
-    img: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Chest_icon.svg",
-  },
-  {
-    word: "stomach",
-    img: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Stomach_icon.svg",
-  },
+  { word: "body", img: "tělo" },
+  { word: "head", img: "hlava" },
+  { word: "hand", img: "ruka" },
+  { word: "leg", img: "noga" },
+  { word: "eye", img: "oko" },
+  { word: "ear", img: "ucho" },
+  { word: "nose", img: "nos" },
+  { word: "mouth", img: "usta" },
+  { word: "hair", img: "vlasy" },
+  { word: "foot", img: "noha" },
+  { word: "finger", img: "prst" },
+  { word: "toe", img: "prst na nozi" },
+  { word: "knee", img: "koleno" },
+  { word: "elbow", img: "lakt" },
+  { word: "shoulder", img: "rame" },
+  { word: "back", img: "leđa" },
+  { word: "chest", img: "prsa" },
+  { word: "stomach", img: "trbuh" },
 ];
 
 function App() {
   const [users, setUsers] = useState(null);
-  //const [words, setWords] = useState(null);
-
   const words = wordsData;
 
   useEffect(() => {
@@ -101,6 +45,12 @@ function App() {
       const data = await getUsers();
       setUsers(data);
     };
+    const loadWords = async () => {
+    const data = await getWords();
+    // setWords(data);
+    };
+     loadUsers();
+    // loadWords();
 
     loadUsers();
 
@@ -112,6 +62,7 @@ function App() {
     if (!users) return;
     prepareLessonCards(users[0].current_lesson);
   }, [users]);
+  console.log('usershere: ', users)
 
   let initialUser = users ? users[0] : [];
 
