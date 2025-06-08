@@ -2,43 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { getUsers, getWords, updateUserScore } from "./queries";
 
-const usersData = [
-  {
-    username: "somename",
-    current_score: 0,
-    current_lesson: 1,
-  },
-  {
-    username: "somename2",
-    current_score: 0,
-    current_lesson: 1,
-  },
-];
-
-const wordsData = [
-  { word: "body", img: "tělo" },
-  { word: "head", img: "hlava" },
-  { word: "hand", img: "ruka" },
-  { word: "leg", img: "noga" },
-  { word: "eye", img: "oko" },
-  { word: "ear", img: "ucho" },
-  { word: "nose", img: "nos" },
-  { word: "mouth", img: "usta" },
-  { word: "hair", img: "vlasy" },
-  { word: "foot", img: "noha" },
-  { word: "finger", img: "prst" },
-  { word: "toe", img: "prst na nozi" },
-  { word: "knee", img: "koleno" },
-  { word: "elbow", img: "lakt" },
-  { word: "shoulder", img: "rame" },
-  { word: "back", img: "leđa" },
-  { word: "chest", img: "prsa" },
-  { word: "stomach", img: "trbuh" },
-];
-
 function App() {
   const [users, setUsers] = useState(null);
-  const words = wordsData;
+  const [words, setWords] = useState(null);
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -46,13 +12,11 @@ function App() {
       setUsers(data);
     };
     const loadWords = async () => {
-      const data = await getWords();
-      // setWords(data);
+    const data = await getWords();
+      setWords(data);
     };
     loadUsers();
-    // loadWords();
-
-    loadUsers();
+    loadWords();
 
     // if (!users[0]) return;
     // prepareLessonCards(users[0].current_lesson);
