@@ -38,10 +38,26 @@ const wordsData = [
 
 
 function App() {
-  const users = usersData;
-  const words = wordsData;
+  const [users, setUsers] = useState(null);
+  const [words, setWords] = useState(null);
 
-  let initialUser = users[0];
+  useEffect(() => {
+    const loadUsers = async () => {
+      const data = await getUsers();
+      setUsers(data);
+    };
+    const loadWords = async () => {
+    const data = await getWords();
+    setWords(data);
+    };
+     loadUsers();
+    loadWords();
+
+  }, []);
+  console.log('usershere: ', users)
+  console.log('wpoe: ', words)
+
+  let initialUser = users ? users[0] : [];
 
   const [currentUsername, setCurrentUsername] = useState(initialUser.username);
   const [currentScore, setCurrentScore] = useState(initialUser.current_score);
@@ -54,17 +70,10 @@ function App() {
   const [wrongCard, setWrongCard] = useState("");
   const [selectedCardData, setSelectedCardData] = useState("");
 
-  // useEffect(() => {
-  //   const loadUsers = async () => {
-  //     const data = await getUsers();
-  //     setUsers(data);
-  //   };
 
-  //   loadUsers();
-
-  // }, []);
 
   useEffect(() => {
+    if (!users) return
     const currentUser = users.find((u) => u.username === currentUsername);
 
     setCurrentScore(currentUser.current_score);
