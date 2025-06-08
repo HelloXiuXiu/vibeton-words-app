@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import fetchUsers from './queries';
+import getUsers from './queries';
 
 function App() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const loadUsers = async () => {
-      const data = await fetchUsers();
+      const data = await getUsers();
       setUsers(data);
     };
 
     loadUsers();
+
   }, []);
 
   return (
