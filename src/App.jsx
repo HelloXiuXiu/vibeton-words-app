@@ -125,8 +125,7 @@ function App() {
 
     const matchedWord = words.find(
       (w) =>
-        (w.word === firstCard && w.img === secondCard) ||
-        (w.word === secondCard && w.img === firstCard),
+        (w.word === firstCard || w.img === secondCard)
     );
 
     if (matchedWord) {
